@@ -10,11 +10,9 @@ class TodoList extends Component {
             list: store.getState().list,
             inputVlue:''
         };
-        console.log(store.getState());
         store.subscribe(this.storeChange)
     }
     changeValue = (e) => {
-        console.log(e.target.value);
         this.setState({
             inputVlue:e.target.value
         })
@@ -27,8 +25,14 @@ class TodoList extends Component {
         }
         store.dispatch(action);
     }
+    delList = (index) => {
+        const action = {
+            type:'delList',
+            value:index
+        }
+        store.dispatch(action)
+    }
     storeChange =() =>{
-        console.log(store.getState());
         this.setState({
             list:store.getState().list
         });
@@ -46,8 +50,8 @@ class TodoList extends Component {
                         <List
                             bordered
                             dataSource={this.state.list}
-                            renderItem={item => (
-                                <List.Item>
+                            renderItem={(item,index) => (
+                                <List.Item onClick={ this.delList.bind(this,index) }>
                                     {item}
                                 </List.Item>
                             )}
