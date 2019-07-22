@@ -9,19 +9,28 @@ function App() {
         <div className="header">
           <Link to='/' >首页</Link>
           <Link to='/todolist' >TodoList</Link>
+          <Link to='/user' >User</Link>
         </div>
         <div className="main">
           {
             routes.map((route, key) => {
-              return (
-                <Route
+              if (route.exact) {
+                return (<Route
                   exact
                   key={key}
                   path={route.path}
                   render={props => (
                     <route.component {...props} routes={route.routes} />
-                  )} />
-              )
+                  )} />)
+              } else {
+                return (<Route
+                  key={key}
+                  path={route.path}
+                  render={props => (
+                    <route.component {...props} routes={route.routes} />
+                  )} />)
+              }
+
             })
           }
         </div>

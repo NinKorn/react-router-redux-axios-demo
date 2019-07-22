@@ -1,0 +1,19 @@
+.user {
+    width: 100%;
+    .title{
+    }
+    .body{
+        display: flex;
+        .sidle {
+            width: 20%;
+            background-color: darkcyan;
+            a {
+                display: block;
+                color: #fff;
+            }
+        }
+        .main {
+            flex: 1;
+        }
+    }
+}
