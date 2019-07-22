@@ -1,0 +1,13 @@
+.todo-lidt {
+    width: 100%;
+    .content {
+        margin: 50px auto;
+        width: 60%;
+        .input{
+            display: flex;
+        }
+        .list-box{
+            padding: 10px;
+        }
+    }
+}
