@@ -1,29 +1,51 @@
 import React, { Component } from 'react';
 import { Input, Button, List } from 'antd';
+import store from '../store'
 import '../style/todolist.scss'
 
 class TodoList extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            list: store.getState().list,
+            inputVlue:''
+        };
+        console.log(store.getState());
+        store.subscribe(this.storeChange)
     }
+    changeValue = (e) => {
+        console.log(e.target.value);
+        this.setState({
+            inputVlue:e.target.value
+        })
+    }
+    addList = () => {
+        console.log('aa');
+        const action ={
+            type:'addList',
+            value:this.state.inputVlue
+        }
+        store.dispatch(action);
+    }
+    storeChange =() =>{
+        console.log(store.getState());
+        this.setState({
+            list:store.getState().list
+        });
+    }
+
     render() {
-        let list = [
-            '第一天的计划',
-            '第二天的计划',
-            '第三天的计划'
-        ];
         return (
             <div className="todo-lidt">
                 <div className="content">
                     <div className="input">
-                        <Input placeholder="Basic usage" />
-                        <Button type="primary">添加</Button>
+                        <Input placeholder="Basic usage" onChange={this.changeValue} />
+                        <Button type="primary" onClick={this.addList}>添加</Button>
                     </div>
                     <div className="list-box">
                         <List
                             bordered
-                            dataSource={list}
+                            dataSource={this.state.list}
                             renderItem={item => (
                                 <List.Item>
                                     {item}
